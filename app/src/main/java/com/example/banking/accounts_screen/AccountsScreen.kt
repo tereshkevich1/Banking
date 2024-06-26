@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,11 +29,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.banking.R
+import com.example.banking.accounts_screen.bottomSheet.AccountsBottomSheet
 import com.example.banking.accounts_screen.cards.account.CardAccount
 import com.example.banking.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.accounts_screen.cards.transaction_card.RecentTransactionRow
-import com.example.banking.bottomSheet.AccountsBottomSheet
 import com.example.banking.models.Account
 import com.example.banking.models.CardState
 import com.example.banking.models.Transaction
@@ -41,8 +43,9 @@ import java.util.Date
 
 @ExperimentalMaterial3Api
 @Composable
-fun AccountsScreen() {
+fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
 
+    val currentAccount by accountsViewModel.account.collectAsState()
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val containerColor = colorResource(id = R.color.floating_button_container_color)
     val contentColor = colorResource(id = R.color.white)
@@ -55,14 +58,15 @@ fun AccountsScreen() {
         AccountsBottomSheet(
             listOf(
                 Account("saving Account", "19124214302735", "12847234", true),
-                Account("sav Account", "19124214302735", "12847234", false),
-                Account("sav Account", "19124214302735", "12847234", false),
-                Account("sav Account", "19124214302735", "12847234", false),
-            ), { showSheet = false}, {})
-
+                Account("sav Account", "19124214302735", "12847230", false),
+                Account("sa Account", "19124214302735", "12847241", false),
+                Account("s Account", "19124214302735", "12847342", false),
+            ),
+            onDismiss = { showSheet = false },
+            onAccountClick = { account -> accountsViewModel.updateAccount(account) },
+            account = currentAccount
+        )
     }
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,15 +80,8 @@ fun AccountsScreen() {
         CardAccount(
             Modifier,
             backgroundCardColor,
-            Account(
-                "saving Account",
-                "19124214302735",
-                "12847234",
-                true
-            )
-        ) {
-
-        }
+            currentAccount
+        ) { showSheet = true }
         RecentTransactionRow()
         CardTransactions(
             listOf(
@@ -99,7 +96,6 @@ fun AccountsScreen() {
                 Transaction("Google", Date(), 1000, CardState.EXECUTED)
             )
         )
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -107,7 +103,7 @@ fun AccountsScreen() {
             contentAlignment = Alignment.BottomEnd
         ) {
             FloatingActionButton(
-                onClick = { showSheet = true },
+                onClick = {},
                 modifier = Modifier
                     .size(56.dp)
                     .clip(CircleShape),
@@ -123,7 +119,6 @@ fun AccountsScreen() {
         }
     }
 }
-
 
 @Composable
 @Preview

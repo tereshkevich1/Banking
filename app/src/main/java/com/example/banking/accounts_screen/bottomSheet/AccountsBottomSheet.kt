@@ -1,4 +1,4 @@
-package com.example.banking.bottomSheet
+package com.example.banking.accounts_screen.bottomSheet
 
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,7 +14,8 @@ import com.example.banking.models.Account
 fun AccountsBottomSheet(
     accountsList: List<Account>,
     onDismiss: () -> Unit,
-    onAccountClick: (Account) -> Unit
+    onAccountClick: (Account) -> Unit,
+    account: Account
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
     val containerColor = colorResource(id = R.color.surface_background_color)
@@ -24,6 +25,6 @@ fun AccountsBottomSheet(
         containerColor = containerColor,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
-        AccountsList(accountsList, onAccountClick)
+        AccountsList(accountsList, onAccountClick, account)
     }
 }
