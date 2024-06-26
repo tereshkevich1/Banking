@@ -2,14 +2,10 @@ package com.example.banking
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,8 +19,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.banking.models.CardState
@@ -91,33 +85,6 @@ fun AccountsScreen() {
                     contentDescription = "plus"
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun RecentTransactionRow() {
-    val innerPadding = dimensionResource(id = R.dimen.inner_padding)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 24.dp, bottom = innerPadding)
-    ) {
-        Text(
-            text = stringResource(id = R.string.recent_transactions),
-            style = MaterialTheme.typography.titleMedium,
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        val textStyle =
-            MaterialTheme.typography.bodySmall.merge(TextStyle(color = colorResource(id = R.color.clickable_text_color)))
-
-        ClickableText(
-            text = AnnotatedString(stringResource(id = R.string.view_all)),
-            modifier = Modifier.align(Alignment.CenterVertically),
-            style = textStyle
-        ) {
         }
     }
 }
