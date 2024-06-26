@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Banking</string>
+    <string name="account_name">Saving_account</string>
+    <string name="accounts">Account</string>
+    <string name="recent_transactions">Recent Transactions</string>"
+    <string name="view_all">view all</string>
 </resources>
