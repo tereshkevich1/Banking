@@ -3,4 +3,6 @@
     <dimen name="bottom_text_card_padding">2dp</dimen>
     <dimen name="card_inner_padding">16dp</dimen>
     <dimen name="card_image_end_padding">10dp</dimen>
+    <dimen name="inner_padding">16dp</dimen>
+    <dimen name="floating_button_padding">4dp</dimen>
 </resources>
