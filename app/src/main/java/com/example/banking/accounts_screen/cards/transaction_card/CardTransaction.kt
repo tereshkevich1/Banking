@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.transaction_card
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.banking.R
 import com.example.banking.models.CardState
 import com.example.banking.models.Transaction
 import com.example.banking.ui.theme.BankingTheme

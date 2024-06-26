@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.account
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.banking.R
 
 @Composable
 fun AccountImage(paddingEnd: Dp, modifier: Modifier = Modifier) {

@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.account
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -22,7 +22,7 @@ fun AccountDetails(
         Text(
             text = cardName,
             modifier = Modifier.padding(bottom = bottomTextCardPadding),
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             fontSize = 20.sp
         )
         Text(
@@ -33,6 +33,7 @@ fun AccountDetails(
         )
         Text(
             text = "•••• ${cardNumber.takeLast(4)}",
+            modifier = Modifier,
             style = MaterialTheme.typography.bodySmall,
             color = textColor
         )

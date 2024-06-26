@@ -1,8 +1,9 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.transaction_card
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import com.example.banking.R
 import com.example.banking.models.CardState
 
 @Composable

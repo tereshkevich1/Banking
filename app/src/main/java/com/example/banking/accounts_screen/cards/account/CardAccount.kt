@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.account
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
@@ -18,24 +18,26 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.banking.R
+import com.example.banking.accounts_screen.cards.ChevronForwardIcon
+import com.example.banking.models.Account
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun CardAccount(
-    cardName: String,
-    accountNumber: String,
-    cardNumber: String,
-    onCardClick: () -> Unit
+    modifier: Modifier,
+    cardBackgroundColor: Color,
+    account: Account,
+    onCardClick: (Account) -> Unit
 ) {
-    val cardBackgroundColor = colorResource(id = R.color.account_card_background_color)
     val cardInnerPadding = dimensionResource(id = R.dimen.card_inner_padding)
     val cardImageEndPadding = dimensionResource(id = R.dimen.card_image_end_padding)
     val bottomTextCardPadding = dimensionResource(id = R.dimen.bottom_text_card_padding)
     val textColor = Color.White.copy(alpha = 0.6f)
 
     Card(
-        onClick = onCardClick,
-        modifier = Modifier
+        onClick = { onCardClick(account) },
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(containerColor = cardBackgroundColor)
@@ -48,9 +50,9 @@ fun CardAccount(
         ) {
             AccountImage(cardImageEndPadding, Modifier.align(Alignment.Top))
             AccountDetails(
-                cardName = cardName,
-                accountNumber = accountNumber,
-                cardNumber = cardNumber,
+                cardName = account.name,
+                accountNumber = account.accountNumber,
+                cardNumber = account.cardNumber,
                 textColor = textColor,
                 bottomTextCardPadding = bottomTextCardPadding
             )
@@ -72,7 +74,16 @@ fun CardAccountPreview() {
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
-            CardAccount("Saving", "91212192291221", "1234123412341234", {})
+            val color = colorResource(id = R.color.account_card_background_color)
+            CardAccount(
+                Modifier,
+                color,
+                Account(
+                    "Saving",
+                    "91212192291221",
+                    "1234123412341234", false
+                ),
+                {})
         }
     }
 }

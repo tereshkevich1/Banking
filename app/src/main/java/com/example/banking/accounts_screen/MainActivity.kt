@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

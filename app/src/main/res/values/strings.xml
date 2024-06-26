@@ -7,4 +7,5 @@
     <string name="executed">executed</string>
     <string name="declined">declined</string>
     <string name="in_progress_">in progress</string>
+    <string name="accounts_bottom_sheet_title">Select the account</string>
 </resources>
