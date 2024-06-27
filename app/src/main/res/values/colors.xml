@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="account_card_background_color">#1C1C1E</color>
+    <color name="surface_background_color">#000000</color>
+    <color name="clickable_text_color">#409CFF</color>
+    <color name="executed_color">#52AB5B</color>
+    <color name="declined_color">#F5675E</color>
+    <color name="in_progress_color">#F1BF37</color>
+    <color name="floating_button_container_color">#409CFF</color>
 </resources>
