@@ -2,12 +2,33 @@ package com.example.banking.accounts_screen
 
 import androidx.lifecycle.ViewModel
 import com.example.banking.models.Account
+import com.example.banking.models.CardState
+import com.example.banking.models.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.util.Date
 
 class AccountsViewModel : ViewModel() {
     private val _account = MutableStateFlow(Account("name", "1241244132525", "134234235", true))
     val account: StateFlow<Account> get() = _account
+
+    val accounts = listOf(
+        Account("saving Account", "19124214302735", "12847234", true),
+        Account("sav Account", "19124214302735", "12847230", false),
+        Account("sa Account", "19124214302735", "12847241", false),
+        Account("s Account", "19124214302735", "12847342", false),
+    )
+    val transactions = listOf(
+        Transaction("Google", Date(), 1000, CardState.EXECUTED),
+        Transaction("Google", Date(), 1000, CardState.DECLINED),
+        Transaction(
+            "Google",
+            Date(),
+            1000,
+            CardState.IN_PROGRESS
+        ),
+        Transaction("Google", Date(), 1000, CardState.EXECUTED)
+    )
 
     fun loadAccount() {
         _account.value = Account("name", "1241244132525", "134234235", true)
