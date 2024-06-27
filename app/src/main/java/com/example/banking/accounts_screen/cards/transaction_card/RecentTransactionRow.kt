@@ -1,4 +1,4 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.transaction_card
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.example.banking.R
 
 @Composable
 fun RecentTransactionRow() {
@@ -29,12 +30,9 @@ fun RecentTransactionRow() {
             text = stringResource(id = R.string.recent_transactions),
             style = MaterialTheme.typography.titleMedium,
         )
-
         Spacer(modifier = Modifier.weight(1f))
-
         val textStyle =
             MaterialTheme.typography.bodySmall.merge(TextStyle(color = colorResource(id = R.color.clickable_text_color)))
-
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.view_all)),
             modifier = Modifier.align(Alignment.CenterVertically),

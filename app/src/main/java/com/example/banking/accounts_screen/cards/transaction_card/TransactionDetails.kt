@@ -1,10 +1,13 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.transaction_card
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.banking.models.Transaction
 import java.text.SimpleDateFormat
@@ -22,16 +25,19 @@ fun TransactionDetails(
 
     Column {
         Text(
+            modifier = Modifier.defaultMinSize(minHeight = 28.dp),
             text = transaction.companyName,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             fontSize = 20.sp
         )
         Text(
+            modifier = Modifier.defaultMinSize(minHeight = 18.dp),
             text = formattedDate,
             style = MaterialTheme.typography.bodySmall,
             color = textColor
         )
         Text(
+            modifier = Modifier.defaultMinSize(minHeight = 18.dp),
             text = stateText,
             style = MaterialTheme.typography.bodySmall,
             color = stateColor

@@ -1,7 +1,8 @@
-package com.example.banking
+package com.example.banking.accounts_screen.cards.transaction_card
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import com.example.banking.R
 import com.example.banking.models.CardState
 
 @Composable
