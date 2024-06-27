@@ -1,12 +1,15 @@
 package com.example.banking.accounts_screen.cards.transaction_card
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -36,7 +39,7 @@ fun CardTransactions(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = cardBackgroundColor)
     ) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier) {
             items(transactions) { transaction ->
                 Transaction(transaction)
                 HorizontalDivider(modifier = Modifier.padding(horizontal = cardInnerPadding))
@@ -44,7 +47,6 @@ fun CardTransactions(
         }
     }
 }
-
 
 @Composable
 @Preview

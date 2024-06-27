@@ -1,4 +1,4 @@
-package com.example.banking.transcation_screen
+package com.example.banking.create_transaction_screen
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class TransactionViewModel : ViewModel() {
+class CreateTransactionViewModel : ViewModel() {
     val isButtonEnable by derivedStateOf {
         transactionApplied.isNotEmpty() &&
                 transactionNumber.isNotEmpty() &&

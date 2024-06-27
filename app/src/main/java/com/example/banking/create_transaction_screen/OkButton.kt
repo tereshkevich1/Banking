@@ -1,4 +1,4 @@
-package com.example.banking.transcation_screen
+package com.example.banking.create_transaction_screen
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

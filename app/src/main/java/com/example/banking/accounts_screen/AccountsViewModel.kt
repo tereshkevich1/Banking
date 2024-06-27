@@ -8,6 +8,7 @@ import com.example.banking.models.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.Date
 
 class AccountsViewModel : ViewModel() {

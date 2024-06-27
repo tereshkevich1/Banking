@@ -1,4 +1,4 @@
-package com.example.banking.transcation_screen
+package com.example.banking.create_transaction_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +17,7 @@ import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
-fun TransactionsScreen(transactionViewModel: TransactionViewModel = viewModel()) {
+fun TransactionsScreen(createTransactionViewModel: CreateTransactionViewModel = viewModel()) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val bottomTextPadding = dimensionResource(id = R.dimen.large_padding)
 
@@ -40,36 +40,36 @@ fun TransactionsScreen(transactionViewModel: TransactionViewModel = viewModel())
 
         TextFieldWithLabel(
             label = transactionAppliedLabel,
-            value = transactionViewModel.transactionApplied,
-            onValueChange = { transactionViewModel.updateTransactionApplied(it) },
+            value = createTransactionViewModel.transactionApplied,
+            onValueChange = { createTransactionViewModel.updateTransactionApplied(it) },
             modifier = Modifier
         )
         TextFieldWithLabel(
             label = transactionNumberLabel,
-            value = transactionViewModel.transactionNumber,
-            onValueChange = { transactionViewModel.updateTransactionNumber(it) },
+            value = createTransactionViewModel.transactionNumber,
+            onValueChange = { createTransactionViewModel.updateTransactionNumber(it) },
             modifier = Modifier
         )
         TextFieldWithLabel(
             label = dateLabel,
-            value = transactionViewModel.date,
-            onValueChange = { transactionViewModel.updateDate(it) },
+            value = createTransactionViewModel.date,
+            onValueChange = { createTransactionViewModel.updateDate(it) },
             modifier = Modifier
         )
         TextFieldWithLabel(
             label = transactionStatusLabel,
-            value = transactionViewModel.transactionStatus,
-            onValueChange = { transactionViewModel.updateTransactionStatus(it) },
+            value = createTransactionViewModel.transactionStatus,
+            onValueChange = { createTransactionViewModel.updateTransactionStatus(it) },
             modifier = Modifier
         )
         TextFieldWithLabel(
             label = amountLabel,
-            value = transactionViewModel.amount,
-            onValueChange = { transactionViewModel.updateAmount(it) },
+            value = createTransactionViewModel.amount,
+            onValueChange = { createTransactionViewModel.updateAmount(it) },
             modifier = Modifier
         )
 
-        OkButton(onClick = {}, modifier = Modifier.padding(top = innerPadding), transactionViewModel.isButtonEnable)
+        OkButton(onClick = {}, modifier = Modifier.padding(top = innerPadding), createTransactionViewModel.isButtonEnable)
     }
 }
 
