@@ -29,7 +29,6 @@ fun CardTransactions(
 ) {
     val cardBackgroundColor = colorResource(id = R.color.account_card_background_color)
     val cardInnerPadding = dimensionResource(id = R.dimen.card_inner_padding)
-
     Card(
         modifier = Modifier
             .fillMaxWidth()

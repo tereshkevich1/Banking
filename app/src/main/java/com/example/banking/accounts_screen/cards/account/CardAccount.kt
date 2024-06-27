@@ -34,7 +34,6 @@ fun CardAccount(
     val cardImageEndPadding = dimensionResource(id = R.dimen.card_image_end_padding)
     val bottomTextCardPadding = dimensionResource(id = R.dimen.bottom_text_card_padding)
     val textColor = Color.White.copy(alpha = 0.6f)
-
     Card(
         onClick = { onCardClick(account) },
         modifier = modifier
@@ -57,7 +56,7 @@ fun CardAccount(
                 bottomTextCardPadding = bottomTextCardPadding
             )
             Spacer(modifier = Modifier.weight(1f))
-            ChevronForwardIcon()
+            ChevronForwardIcon(Modifier)
         }
     }
 }

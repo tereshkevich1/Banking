@@ -30,12 +30,9 @@ fun RecentTransactionRow() {
             text = stringResource(id = R.string.recent_transactions),
             style = MaterialTheme.typography.titleMedium,
         )
-
         Spacer(modifier = Modifier.weight(1f))
-
         val textStyle =
             MaterialTheme.typography.bodySmall.merge(TextStyle(color = colorResource(id = R.color.clickable_text_color)))
-
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.view_all)),
             modifier = Modifier.align(Alignment.CenterVertically),
