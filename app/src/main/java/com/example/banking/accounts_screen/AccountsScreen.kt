@@ -44,24 +44,16 @@ import java.util.Date
 @ExperimentalMaterial3Api
 @Composable
 fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
-
     val currentAccount by accountsViewModel.account.collectAsState()
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val containerColor = colorResource(id = R.color.floating_button_container_color)
     val contentColor = colorResource(id = R.color.white)
     val floatingButtonPadding = dimensionResource(id = R.dimen.floating_button_padding)
     val backgroundCardColor = colorResource(id = R.color.account_card_background_color)
-
     var showSheet by remember { mutableStateOf(false) }
-
     if (showSheet) {
         AccountsBottomSheet(
-            listOf(
-                Account("saving Account", "19124214302735", "12847234", true),
-                Account("sav Account", "19124214302735", "12847230", false),
-                Account("sa Account", "19124214302735", "12847241", false),
-                Account("s Account", "19124214302735", "12847342", false),
-            ),
+           accountsViewModel.accounts,
             onDismiss = { showSheet = false },
             onAccountClick = { account -> accountsViewModel.updateAccount(account) },
             account = currentAccount
@@ -84,17 +76,7 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
         ) { showSheet = true }
         RecentTransactionRow()
         CardTransactions(
-            listOf(
-                Transaction("Google", Date(), 1000, CardState.EXECUTED),
-                Transaction("Google", Date(), 1000, CardState.DECLINED),
-                Transaction(
-                    "Google",
-                    Date(),
-                    1000,
-                    CardState.IN_PROGRESS
-                ),
-                Transaction("Google", Date(), 1000, CardState.EXECUTED)
-            )
+            accountsViewModel.transactions
         )
         Box(
             modifier = Modifier
