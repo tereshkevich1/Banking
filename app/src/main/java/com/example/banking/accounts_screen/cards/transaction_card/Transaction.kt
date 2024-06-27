@@ -20,6 +20,7 @@ import com.example.banking.models.Transaction
 fun Transaction(transaction: Transaction) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val amount = "$${transaction.amount}"
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
