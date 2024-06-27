@@ -29,11 +29,9 @@ class AccountsViewModel : ViewModel() {
         ),
         Transaction("Google", Date(), 1000, CardState.EXECUTED)
     )
-
     fun loadAccount() {
         _account.value = Account("name", "1241244132525", "134234235", true)
     }
-
     fun updateAccount(updatedAccount: Account) {
         _account.value = updatedAccount
     }

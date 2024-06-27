@@ -19,7 +19,6 @@ fun AccountsBottomSheet(
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
     val containerColor = colorResource(id = R.color.surface_background_color)
-
     ModalBottomSheet(
         onDismissRequest = onDismiss, sheetState = modalBottomSheetState,
         containerColor = containerColor,

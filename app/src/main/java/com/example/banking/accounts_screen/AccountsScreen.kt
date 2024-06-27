@@ -44,16 +44,13 @@ import java.util.Date
 @ExperimentalMaterial3Api
 @Composable
 fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
-
     val currentAccount by accountsViewModel.account.collectAsState()
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val containerColor = colorResource(id = R.color.floating_button_container_color)
     val contentColor = colorResource(id = R.color.white)
     val floatingButtonPadding = dimensionResource(id = R.dimen.floating_button_padding)
     val backgroundCardColor = colorResource(id = R.color.account_card_background_color)
-
     var showSheet by remember { mutableStateOf(false) }
-
     if (showSheet) {
         AccountsBottomSheet(
            accountsViewModel.accounts,
