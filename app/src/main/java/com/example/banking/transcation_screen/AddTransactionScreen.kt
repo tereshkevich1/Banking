@@ -17,7 +17,7 @@ import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
-fun TransactionsScreen(transactionViewModel: TransactionViewModel = viewModel()) {
+fun AddTransactionsScreen(transactionViewModel: TransactionViewModel = viewModel()) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val bottomTextPadding = dimensionResource(id = R.dimen.large_padding)
 
@@ -82,7 +82,7 @@ fun TransactionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            TransactionsScreen()
+            AddTransactionsScreen()
         }
     }
 }
