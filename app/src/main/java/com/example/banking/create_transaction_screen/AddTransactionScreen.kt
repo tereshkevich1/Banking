@@ -17,11 +17,7 @@ import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
-<<<<<<<< HEAD:app/src/main/java/com/example/banking/create_transaction_screen/TransactionScreen.kt
-fun TransactionsScreen(createTransactionViewModel: CreateTransactionViewModel = viewModel()) {
-========
-fun AddTransactionsScreen(transactionViewModel: TransactionViewModel = viewModel()) {
->>>>>>>> master:app/src/main/java/com/example/banking/create_transaction_screen/AddTransactionScreen.kt
+fun AddTransactionsScreen(createTransactionViewModel: CreateTransactionViewModel = viewModel()) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val bottomTextPadding = dimensionResource(id = R.dimen.large_padding)
 
@@ -73,7 +69,11 @@ fun AddTransactionsScreen(transactionViewModel: TransactionViewModel = viewModel
             modifier = Modifier
         )
 
-        OkButton(onClick = {}, modifier = Modifier.padding(top = innerPadding), createTransactionViewModel.isButtonEnable)
+        OkButton(
+            onClick = {},
+            modifier = Modifier.padding(top = innerPadding),
+            createTransactionViewModel.isButtonEnable
+        )
     }
 }
 
