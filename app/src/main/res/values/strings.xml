@@ -8,4 +8,12 @@
     <string name="declined">declined</string>
     <string name="in_progress_">in progress</string>
     <string name="accounts_bottom_sheet_title">Select the account</string>
+    <string name="ok">Okay</string>
+    <string name="transaction">Transaction</string>
+    <string name="transaction_applied">Transaction was applied in</string>
+    <string name="transaction_number">Transaction number</string>
+    <string name="date">Date</string>
+    <string name="transaction_status">Transaction status</string>
+    <string name="amount">Amount</string>
+
 </resources>

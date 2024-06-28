@@ -1,16 +1,19 @@
 package com.example.banking.accounts_screen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.banking.models.Account
 import com.example.banking.models.CardState
 import com.example.banking.models.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.Date
 
 class AccountsViewModel : ViewModel() {
     private val _account = MutableStateFlow(Account("name", "1241244132525", "134234235", true))
-    val account: StateFlow<Account> get() = _account
+    val account = _account.asStateFlow()
 
     val accounts = listOf(
         Account("saving Account", "19124214302735", "12847234", true),
@@ -30,7 +33,9 @@ class AccountsViewModel : ViewModel() {
         Transaction("Google", Date(), 1000, CardState.EXECUTED)
     )
     fun loadAccount() {
-        _account.value = Account("name", "1241244132525", "134234235", true)
+        viewModelScope.launch {
+            _account.emit(Account("name", "1241244132525", "134234235", true))
+        }
     }
     fun updateAccount(updatedAccount: Account) {
         _account.value = updatedAccount

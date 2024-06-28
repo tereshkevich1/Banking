@@ -21,6 +21,7 @@ import com.example.banking.R
 @Composable
 fun RecentTransactionRow() {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
