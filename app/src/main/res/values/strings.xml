@@ -15,5 +15,6 @@
     <string name="date">Date</string>
     <string name="transaction_status">Transaction status</string>
     <string name="amount">Amount</string>
+    <string name="all_transactions">All transactions</string>
 
 </resources>

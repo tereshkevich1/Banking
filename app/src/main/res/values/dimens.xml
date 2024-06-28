@@ -7,4 +7,6 @@
     <dimen name="floating_button_padding">4dp</dimen>
     <dimen name="large_padding">32dp</dimen>
     <dimen name="small_padding">8dp</dimen>
+    <dimen name="all_transactions_horizontal_padding_start">12dp</dimen>
+    <dimen name="all_transactions_horizontal_padding_end">20dp</dimen>
 </resources>
