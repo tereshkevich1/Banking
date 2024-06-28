@@ -51,6 +51,7 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
     val floatingButtonPadding = dimensionResource(id = R.dimen.floating_button_padding)
     val backgroundCardColor = colorResource(id = R.color.account_card_background_color)
     var showSheet by remember { mutableStateOf(false) }
+
     if (showSheet) {
         AccountsBottomSheet(
            accountsViewModel.accounts,
@@ -74,7 +75,9 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
             backgroundCardColor,
             currentAccount
         ) { showSheet = true }
+
         RecentTransactionRow()
+
         CardTransactions(
             accountsViewModel.transactions
         )

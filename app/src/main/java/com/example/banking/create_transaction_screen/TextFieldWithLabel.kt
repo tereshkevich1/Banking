@@ -1,5 +1,6 @@
 package com.example.banking.create_transaction_screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,13 +29,16 @@ fun TextFieldWithLabel(
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: () -> Unit = {},
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit) = {},
+    focusedIndicatorColor: Color = colorResource(id = R.color.clickable_text_color),
+    unfocusedIndicatorColor: Color = colorResource(id = R.color.white)
 ) {
     val bottomPadding = dimensionResource(id = R.dimen.small_padding)
     val textFieldBottomPadding = dimensionResource(id = R.dimen.inner_padding)
-    val unfocusedIndicatorColor = colorResource(id = R.color.white)
     val unfocusedContainerColor = colorResource(id = R.color.surface_background_color)
-    val focusedIndicatorColor = colorResource(id = R.color.clickable_text_color)
     val focusedContainerColor = unfocusedContainerColor.copy(alpha = 0.8f)
 
     Column(modifier = modifier) {
@@ -48,8 +53,11 @@ fun TextFieldWithLabel(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = textFieldBottomPadding)
-                .height(48.dp),
+                .height(48.dp)
+                .clickable { onItemClick() },
+            readOnly = readOnly,
             textStyle = MaterialTheme.typography.bodySmall,
+            trailingIcon = trailingIcon,
             shape = RoundedCornerShape(8.dp),
             colors = TextFieldDefaults.colors(
                 unfocusedIndicatorColor = unfocusedIndicatorColor,
