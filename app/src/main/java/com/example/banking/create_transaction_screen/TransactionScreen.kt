@@ -13,6 +13,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
@@ -83,7 +84,7 @@ fun CreateTransactionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            AddTransactionsScreen()
+            CreateTransactionsScreen(navController = rememberNavController())
         }
     }
 }
