@@ -16,4 +16,7 @@
     <color name="floating_button_container_color">#409CFF</color>
     <color name="current_card_background_color">#193053</color>
     <color name="unfocused_indicator_date_field_color">#48484A</color>
+    <color name="week_number_color">#636366</color>
+    <color name="color_control_activated">#636366</color>
+    <color name="deactivated_text_color">#8E8E93</color>
 </resources>

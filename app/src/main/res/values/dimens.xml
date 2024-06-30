@@ -9,4 +9,6 @@
     <dimen name="small_padding">8dp</dimen>
     <dimen name="all_transactions_horizontal_padding_start">12dp</dimen>
     <dimen name="all_transactions_horizontal_padding_end">20dp</dimen>
+    <dimen name="bottom_sheet_calendar_padding">48dp</dimen>
+    <dimen name="date_button_padding">10dp</dimen>
 </resources>

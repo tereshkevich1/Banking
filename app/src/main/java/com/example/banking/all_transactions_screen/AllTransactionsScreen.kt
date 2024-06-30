@@ -50,7 +50,7 @@ fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewMode
 
 @Composable
 @Preview
-fun TransactionScreenPreview() {
+fun AllTransactionScreenPreview() {
     BankingTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
