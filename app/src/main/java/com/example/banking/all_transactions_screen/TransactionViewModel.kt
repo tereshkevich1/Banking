@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.banking.models.CardState
 import com.example.banking.models.Transaction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class TransactionViewModel : ViewModel() {
+@HiltViewModel
+class TransactionViewModel @Inject constructor() : ViewModel() {
     private val _transactions by lazy { MutableStateFlow<List<Transaction>>(emptyList()) }
     val transactions = _transactions.asStateFlow()
 
