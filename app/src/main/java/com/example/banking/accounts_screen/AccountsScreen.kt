@@ -27,7 +27,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.banking.R
 import com.example.banking.accounts_screen.bottomSheet.AccountsBottomSheet
 import com.example.banking.accounts_screen.cards.account.CardAccount
@@ -126,7 +125,7 @@ fun AccountsScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            AccountsScreen(navController = rememberNavController())
+          //  AccountsScreen(navController = rememberNavController())
         }
     }
 }

@@ -100,6 +100,7 @@ fun CreateTransactionsScreen(
     }
 }
 
+
 @Composable
 @Preview
 fun TransactionScreenPreview() {

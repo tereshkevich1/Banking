@@ -1,7 +1,4 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3Api::class
-)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.example.banking.navigation
 
@@ -23,6 +20,7 @@ import com.example.banking.create_transaction_screen.CreateTransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
 fun SetUpNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
@@ -65,6 +63,4 @@ fun SetUpNavGraph(navController: NavHostController) {
         }
     }
 }
-
-
 
