@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.banking.R
 
 @Composable
-fun RecentTransactionRow() {
+fun RecentTransactionRow(onTextClick: () -> Unit) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
 
     Row(
@@ -39,6 +39,7 @@ fun RecentTransactionRow() {
             modifier = Modifier.align(Alignment.CenterVertically),
             style = textStyle
         ) {
+            onTextClick()
         }
     }
 }
