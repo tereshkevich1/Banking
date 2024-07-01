@@ -7,6 +7,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -14,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.banking.R
 import com.example.banking.accounts_screen.cards.transaction_card.CardTransactions
+import com.example.banking.all_transactions_screen.select_date_bottom_sheet.SelectDateBottomSheet
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
@@ -23,12 +27,21 @@ fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewMode
     val startPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_start)
     val endPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_end)
 
+    var showSheet by remember { mutableStateOf(false) }
+
+    if (showSheet) {
+        SelectDateBottomSheet(
+            onDismiss = { showSheet = false }
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = startPadding, end = endPadding)
     ) {
-        NavTopPanel({},{})
+        NavTopPanel({}, {
+            showSheet = true
+        })
         CardTransactions(
             transactions
         )
@@ -37,7 +50,7 @@ fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewMode
 
 @Composable
 @Preview
-fun TransactionScreenPreview() {
+fun AllTransactionScreenPreview() {
     BankingTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

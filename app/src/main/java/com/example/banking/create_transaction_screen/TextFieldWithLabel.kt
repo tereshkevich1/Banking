@@ -1,5 +1,7 @@
 package com.example.banking.create_transaction_screen
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,19 +27,21 @@ import androidx.compose.ui.unit.dp
 import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TextFieldWithLabel(
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: () -> Unit = {},
 ) {
     val bottomPadding = dimensionResource(id = R.dimen.small_padding)
     val textFieldBottomPadding = dimensionResource(id = R.dimen.inner_padding)
-    val unfocusedIndicatorColor = colorResource(id = R.color.white)
     val unfocusedContainerColor = colorResource(id = R.color.surface_background_color)
-    val focusedIndicatorColor = colorResource(id = R.color.clickable_text_color)
     val focusedContainerColor = unfocusedContainerColor.copy(alpha = 0.8f)
+    val focusedIndicatorColor: Color = colorResource(id = R.color.clickable_text_color)
+    val unfocusedIndicatorColor: Color = colorResource(id = R.color.white)
 
     Column(modifier = modifier) {
         Text(
@@ -49,7 +56,14 @@ fun TextFieldWithLabel(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = textFieldBottomPadding)
-                .height(48.dp),
+                .height(48.dp)
+                .clickable { onItemClick() }
+                .pointerInteropFilter {
+                    if (it.action == android.view.MotionEvent.ACTION_DOWN) {
+                       Log.d("TAG", "TextFieldWithLabel: clicked")
+                    }
+                    false
+                },
             textStyle = MaterialTheme.typography.bodySmall,
             shape = RoundedCornerShape(8.dp),
             colors = TextFieldDefaults.colors(
