@@ -15,13 +15,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.banking.R
 import com.example.banking.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.all_transactions_screen.select_date_bottom_sheet.SelectDateBottomSheet
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
-fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewModel()) {
+fun AllTransactionsScreen(
+    transactionsViewModel: TransactionViewModel = viewModel(),
+    navController: NavController
+) {
     transactionsViewModel.loadTransactions()
     val transactions by transactionsViewModel.transactions.collectAsState()
     val startPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_start)
@@ -31,6 +36,7 @@ fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewMode
 
     if (showSheet) {
         SelectDateBottomSheet(
+            onSubmitButtonClick = { showSheet = false },
             onDismiss = { showSheet = false }
         )
     }
@@ -39,9 +45,9 @@ fun AllTransactionsScreen(transactionsViewModel: TransactionViewModel = viewMode
             .fillMaxSize()
             .padding(start = startPadding, end = endPadding)
     ) {
-        NavTopPanel({}, {
-            showSheet = true
-        })
+        NavTopPanel(
+            onBackButtonClick = { navController.popBackStack() },
+            onOptionsButtonClick = { showSheet = true })
         CardTransactions(
             transactions
         )
@@ -56,7 +62,7 @@ fun AllTransactionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            AllTransactionsScreen()
+            AllTransactionsScreen(navController = rememberNavController())
         }
     }
 }

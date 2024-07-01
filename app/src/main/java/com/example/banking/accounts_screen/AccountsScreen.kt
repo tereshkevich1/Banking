@@ -29,21 +29,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.banking.R
 import com.example.banking.accounts_screen.bottomSheet.AccountsBottomSheet
 import com.example.banking.accounts_screen.cards.account.CardAccount
 import com.example.banking.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.accounts_screen.cards.transaction_card.RecentTransactionRow
-import com.example.banking.models.Account
-import com.example.banking.models.CardState
-import com.example.banking.models.Transaction
+import com.example.banking.navigation.Screen
 import com.example.banking.ui.theme.BankingTheme
-import java.util.Date
 
 @ExperimentalMaterial3Api
 @Composable
-fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
+fun AccountsScreen(
+    accountsViewModel: AccountsViewModel = viewModel(),
+    navController: NavController
+) {
     val currentAccount by accountsViewModel.account.collectAsState()
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val containerColor = colorResource(id = R.color.floating_button_container_color)
@@ -52,9 +56,11 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
     val backgroundCardColor = colorResource(id = R.color.account_card_background_color)
     var showSheet by remember { mutableStateOf(false) }
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     if (showSheet) {
         AccountsBottomSheet(
-           accountsViewModel.accounts,
+            accountsViewModel.accounts,
             onDismiss = { showSheet = false },
             onAccountClick = { account -> accountsViewModel.updateAccount(account) },
             account = currentAccount
@@ -76,7 +82,9 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
             currentAccount
         ) { showSheet = true }
 
-        RecentTransactionRow()
+        RecentTransactionRow {
+            navController.navigate(Screen.AllTransactions.route)
+        }
 
         CardTransactions(
             accountsViewModel.transactions
@@ -88,7 +96,12 @@ fun AccountsScreen(accountsViewModel: AccountsViewModel = viewModel()) {
             contentAlignment = Alignment.BottomEnd
         ) {
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                    val currentState = lifecycleOwner.lifecycle.currentState
+                    if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                        navController.navigate(Screen.CreateTransaction.route)
+                    }
+                },
                 modifier = Modifier
                     .size(56.dp)
                     .clip(CircleShape),
@@ -113,7 +126,7 @@ fun AccountsScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            AccountsScreen()
+            AccountsScreen(navController = rememberNavController())
         }
     }
 }

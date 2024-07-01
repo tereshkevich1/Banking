@@ -13,11 +13,16 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.banking.R
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
-fun AddTransactionsScreen(createTransactionViewModel: CreateTransactionViewModel = viewModel()) {
+fun CreateTransactionsScreen(
+    createTransactionViewModel: CreateTransactionViewModel = viewModel(),
+    navController: NavController
+) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val bottomTextPadding = dimensionResource(id = R.dimen.large_padding)
 
@@ -86,7 +91,7 @@ fun TransactionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-            AddTransactionsScreen()
+            CreateTransactionsScreen(navController = rememberNavController())
         }
     }
 }
