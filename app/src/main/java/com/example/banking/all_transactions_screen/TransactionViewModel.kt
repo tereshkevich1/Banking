@@ -16,6 +16,10 @@ class TransactionViewModel @Inject constructor() : ViewModel() {
     private val _transactions by lazy { MutableStateFlow<List<Transaction>>(emptyList()) }
     val transactions = _transactions.asStateFlow()
 
+    init {
+        loadTransactions()
+    }
+
     fun addTransaction(transaction: Transaction) {
         val currentTransactions = _transactions.value.toMutableList()
         currentTransactions.add(transaction)
