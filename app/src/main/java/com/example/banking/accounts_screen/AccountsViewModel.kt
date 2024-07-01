@@ -5,13 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.banking.models.Account
 import com.example.banking.models.CardState
 import com.example.banking.models.Transaction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class AccountsViewModel : ViewModel() {
+@HiltViewModel
+class AccountsViewModel @Inject constructor() : ViewModel() {
     private val _account = MutableStateFlow(Account("name", "1241244132525", "134234235", true))
     val account = _account.asStateFlow()
 
@@ -32,11 +34,13 @@ class AccountsViewModel : ViewModel() {
         ),
         Transaction("Google", Date(), 1000, CardState.EXECUTED)
     )
+
     fun loadAccount() {
         viewModelScope.launch {
             _account.emit(Account("name", "1241244132525", "134234235", true))
         }
     }
+
     fun updateAccount(updatedAccount: Account) {
         _account.value = updatedAccount
     }
