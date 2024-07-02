@@ -4,7 +4,8 @@ import com.example.banking.data.data_source.Transaction
 import com.example.banking.data.data_source.TransactionDao
 import kotlinx.coroutines.flow.Flow
 
-class TransactionRepositoryImpl(private val transactionDao: TransactionDao) : TransactionRepository {
+class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
+    TransactionRepository {
     override fun getTransactions(accountId: Int): Flow<List<Transaction>> {
         return transactionDao.getTransactions(accountId)
     }

@@ -6,11 +6,15 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.banking.presentation.models.CardState
 
-@Entity(tableName = "transactions",
-    foreignKeys = [ForeignKey(entity = Account::class,
+@Entity(
+    tableName = "transactions",
+    foreignKeys = [ForeignKey(
+        entity = Account::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("account_id"),
-        onDelete = ForeignKey.CASCADE)])
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
