@@ -18,12 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.all_transactions_screen.TransactionViewModel
+import com.example.banking.presentation.accounts_screen.AccountsViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun CreateTransactionsScreen(
-    transactionsViewModel: TransactionViewModel = hiltViewModel(),
+    accountsViewModel: AccountsViewModel = hiltViewModel(),
     createTransactionViewModel: CreateTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {

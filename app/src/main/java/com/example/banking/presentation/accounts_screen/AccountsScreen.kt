@@ -28,10 +28,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
+import com.example.banking.data.data_source.Transaction
 import com.example.banking.presentation.accounts_screen.bottomSheet.AccountsBottomSheet
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.RecentTransactionRow
+import com.example.banking.presentation.models.CardState
 import com.example.banking.presentation.navigation.Screen
 import com.example.banking.ui.theme.BankingTheme
 
@@ -41,7 +43,8 @@ fun AccountsScreen(
     accountsViewModel: AccountsViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val currentAccount by accountsViewModel.account.collectAsState()
+    val currentAccount by accountsViewModel.currentAccount.collectAsState()
+    val accounts by accountsViewModel.accounts.collectAsState()
 
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val backgroundColor = colorResource(id = R.color.surface_background_color)
@@ -67,9 +70,9 @@ fun AccountsScreen(
         ) {
             if (showSheet) {
                 AccountsBottomSheet(
-                    accountsViewModel.accounts,
+                    accountsList = accounts,
                     onDismiss = { showSheet = false },
-                    onAccountClick = { account -> accountsViewModel.updateAccount(account) },
+                    onAccountClick = { account -> accountsViewModel.changeCurrentAccount(account) },
                     account = currentAccount
                 )
             }
@@ -97,7 +100,8 @@ fun AccountsScreen(
                 }
 
                 CardTransactions(
-                    accountsViewModel.transactions
+                    accountsViewModel.transactions.collectAsState().value,
+                    4
                 )
 
                 FloatingActionButtonBox(
@@ -108,6 +112,17 @@ fun AccountsScreen(
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                             navController.navigate(Screen.CreateTransaction.route)
+                            // it will be fixed
+                            accountsViewModel.addTransaction(
+                                Transaction(
+                                    0,
+                                    currentAccount.id,
+                                    "SS",
+                                    System.currentTimeMillis(),
+                                    100,
+                                    CardState.IN_PROGRESS
+                                )
+                            )
                         }
                     }
                 )
@@ -125,7 +140,7 @@ fun AccountsScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-          //  AccountsScreen(navController = rememberNavController())
+            //  AccountsScreen(navController = rememberNavController())
         }
     }
 }

@@ -14,8 +14,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.banking.presentation.accounts_screen.AccountsScreen
+import com.example.banking.presentation.accounts_screen.AccountsViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionsScreen
-import com.example.banking.presentation.all_transactions_screen.TransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +33,12 @@ fun SetUpNavGraph(navController: NavHostController) {
             exitTransition = { exitSlideTransition() },
             popEnterTransition = { popEnterSlideTransition() }
         ) {
-            AccountsScreen(navController = navController)
+            val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
+            val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
+            AccountsScreen(
+                navController = navController,
+                accountsViewModel = accountsViewModel
+            )
         }
 
         composable(
@@ -42,10 +47,10 @@ fun SetUpNavGraph(navController: NavHostController) {
             popExitTransition = { popExitSlideTransition() }
         ) {
             val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
-            val transactionViewModel: TransactionViewModel = hiltViewModel(parentEntry)
+            val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
             AllTransactionsScreen(
                 navController = navController,
-                transactionsViewModel = transactionViewModel
+                accountsViewModel = accountsViewModel
             )
         }
 
@@ -55,10 +60,10 @@ fun SetUpNavGraph(navController: NavHostController) {
             popExitTransition = { popExitSlideTransition() }
         ) {
             val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
-            val transactionViewModel: TransactionViewModel = hiltViewModel(parentEntry)
+            val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
             CreateTransactionsScreen(
                 navController = navController,
-                transactionsViewModel = transactionViewModel
+                accountsViewModel = accountsViewModel
             )
         }
     }

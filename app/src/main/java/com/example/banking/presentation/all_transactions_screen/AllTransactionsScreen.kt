@@ -22,16 +22,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
+import com.example.banking.presentation.accounts_screen.AccountsViewModel
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.all_transactions_screen.select_date_bottom_sheet.SelectDateBottomSheet
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun AllTransactionsScreen(
-    transactionsViewModel: TransactionViewModel = hiltViewModel(),
+    accountsViewModel: AccountsViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val transactions by transactionsViewModel.transactions.collectAsState()
+    val transactions by accountsViewModel.transactions.collectAsState()
     val startPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_start)
     val endPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_end)
 
@@ -66,7 +67,8 @@ fun AllTransactionsScreen(
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                             navController.popBackStack()
-                        }},
+                        }
+                    },
                     onOptionsButtonClick = { showSheet = true })
                 CardTransactions(
                     transactions

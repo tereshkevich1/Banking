@@ -13,4 +13,16 @@ class AccountsRepositoryImpl(private val accountDao: AccountDao) : AccountsRepos
     override suspend fun getCurrentAccount(currentCard: Boolean): Account {
         return accountDao.getCurrentAccount(currentCard)
     }
+
+    override suspend fun insertAccount(account: Account) {
+        accountDao.insertAccount(account)
+    }
+
+    override suspend fun updateAccount(account: Account) {
+        accountDao.updateAccount(account)
+    }
+
+    override suspend fun insertAccountWithId(account: Account): Long {
+        return accountDao.insertAccountWithId(account)
+    }
 }

@@ -16,16 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.banking.R
-import com.example.banking.presentation.all_transactions_screen.TransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun SelectDateBottomSheet(
     onDismiss: () -> Unit,
-    onSubmitButtonClick: () -> Unit,
-    transactionViewModel: TransactionViewModel = viewModel()
+    onSubmitButtonClick: () -> Unit
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
     val containerColor = colorResource(id = R.color.surface_background_color)

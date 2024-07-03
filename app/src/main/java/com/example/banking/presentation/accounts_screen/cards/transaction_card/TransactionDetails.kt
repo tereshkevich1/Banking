@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.banking.presentation.models.Transaction
+import com.example.banking.data.data_source.Transaction
 import java.text.SimpleDateFormat
 import java.util.Locale
 
