@@ -1,7 +1,8 @@
-package com.example.banking.data.repository
+package com.example.banking.data.repository_impl
 
 import com.example.banking.data.data_source.Account
 import com.example.banking.data.data_source.AccountDao
+import com.example.banking.domain.repository.AccountsRepository
 import kotlinx.coroutines.flow.Flow
 
 class AccountsRepositoryImpl(private val accountDao: AccountDao) : AccountsRepository {
@@ -11,5 +12,17 @@ class AccountsRepositoryImpl(private val accountDao: AccountDao) : AccountsRepos
 
     override suspend fun getCurrentAccount(currentCard: Boolean): Account {
         return accountDao.getCurrentAccount(currentCard)
+    }
+
+    override suspend fun insertAccount(account: Account) {
+        accountDao.insertAccount(account)
+    }
+
+    override suspend fun updateAccount(account: Account) {
+        accountDao.updateAccount(account)
+    }
+
+    override suspend fun insertAccountWithId(account: Account): Long {
+        return accountDao.insertAccountWithId(account)
     }
 }

@@ -7,7 +7,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
 import com.example.banking.R
-import com.example.banking.presentation.models.Account
+import com.example.banking.data.data_source.Account
+
 
 @ExperimentalMaterial3Api
 @Composable

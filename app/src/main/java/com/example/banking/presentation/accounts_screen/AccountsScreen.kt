@@ -2,7 +2,6 @@
 
 package com.example.banking.presentation.accounts_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,16 +31,20 @@ import com.example.banking.presentation.accounts_screen.bottomSheet.AccountsBott
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.RecentTransactionRow
+import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.navigation.Screen
+import com.example.banking.presentation.common_vm.SharedTransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun AccountsScreen(
     accountsViewModel: AccountsViewModel = hiltViewModel(),
+    sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val currentAccount by accountsViewModel.account.collectAsState()
+    val currentAccount by accountsViewModel.currentAccount.collectAsState()
+    val accounts by accountsViewModel.accounts.collectAsState()
 
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val backgroundColor = colorResource(id = R.color.surface_background_color)
@@ -57,8 +60,8 @@ fun AccountsScreen(
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor)
+            .fillMaxSize(),
+        containerColor = backgroundColor
     ) { contentPadding ->
         Box(
             modifier = Modifier
@@ -67,9 +70,9 @@ fun AccountsScreen(
         ) {
             if (showSheet) {
                 AccountsBottomSheet(
-                    accountsViewModel.accounts,
+                    accountsList = accounts,
                     onDismiss = { showSheet = false },
-                    onAccountClick = { account -> accountsViewModel.updateAccount(account) },
+                    onAccountClick = { account -> accountsViewModel.changeCurrentAccount(account) },
                     account = currentAccount
                 )
             }
@@ -97,7 +100,15 @@ fun AccountsScreen(
                 }
 
                 CardTransactions(
-                    accountsViewModel.transactions
+                    transactions = accountsViewModel.transactions.collectAsState().value,
+                    onCardClick = {
+                        val currentState = lifecycleOwner.lifecycle.currentState
+                        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                            sharedTransactionViewModel.updateTransaction(it)
+                            navController.navigate(Screen.CreateTransaction.route)
+                        }
+                    },
+                    maxVisibleItems = 4
                 )
 
                 FloatingActionButtonBox(
@@ -125,7 +136,7 @@ fun AccountsScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = colorResource(id = R.color.surface_background_color)
         ) {
-          //  AccountsScreen(navController = rememberNavController())
+            //  AccountsScreen(navController = rememberNavController())
         }
     }
 }

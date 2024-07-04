@@ -7,7 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import com.example.banking.R
-import com.example.banking.presentation.models.Account
+import com.example.banking.data.data_source.Account
+
 
 @Composable
 fun getCardBackgroundColor(item: Account, currentAccount: Account): Color {

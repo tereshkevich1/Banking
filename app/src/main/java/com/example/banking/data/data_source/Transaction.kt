@@ -27,5 +27,7 @@ data class Transaction(
     @ColumnInfo(name = "transaction_amount")
     val amount: Long,
     @ColumnInfo(name = "transaction_state")
-    val state: CardState
+    val state: CardState,
+    @ColumnInfo(name = "transaction_number")
+    val transactionNumber: String
 )

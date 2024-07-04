@@ -1,4 +1,4 @@
-package com.example.banking.data.repository
+package com.example.banking.domain.repository
 
 import com.example.banking.data.data_source.Transaction
 import kotlinx.coroutines.flow.Flow

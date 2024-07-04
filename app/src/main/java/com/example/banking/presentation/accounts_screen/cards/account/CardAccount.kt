@@ -19,8 +19,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.banking.R
+import com.example.banking.data.data_source.Account
 import com.example.banking.presentation.accounts_screen.cards.ChevronForwardIcon
-import com.example.banking.presentation.models.Account
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
@@ -49,7 +49,7 @@ fun CardAccount(
         ) {
             AccountImage(cardImageEndPadding, Modifier.align(Alignment.Top))
             AccountDetails(
-                cardName = account.name,
+                cardName = account.accountName,
                 accountNumber = account.accountNumber,
                 cardNumber = account.cardNumber,
                 textColor = textColor,
@@ -78,6 +78,7 @@ fun CardAccountPreview() {
                 Modifier,
                 color,
                 Account(
+                    1,
                     "Saving",
                     "91212192291221",
                     "1234123412341234", false

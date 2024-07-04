@@ -1,15 +1,12 @@
 package com.example.banking.presentation.accounts_screen.cards.transaction_card
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -21,14 +18,16 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.banking.R
+import com.example.banking.data.data_source.Transaction
 import com.example.banking.presentation.models.CardState
-import com.example.banking.presentation.models.Transaction
 import com.example.banking.ui.theme.BankingTheme
 import java.util.Date
 
 @Composable
 fun CardTransactions(
-    transactions: List<Transaction>
+    transactions: List<Transaction>,
+    onCardClick: (Transaction) -> Unit,
+    maxVisibleItems: Int = Int.MAX_VALUE
 ) {
     val cardBackgroundColor = colorResource(id = R.color.account_card_background_color)
     val cardInnerPadding = dimensionResource(id = R.dimen.card_inner_padding)
@@ -40,8 +39,8 @@ fun CardTransactions(
         colors = CardDefaults.cardColors(containerColor = cardBackgroundColor)
     ) {
         LazyColumn(modifier = Modifier) {
-            items(transactions) { transaction ->
-                Transaction(transaction)
+            items(transactions.take(maxVisibleItems)) { transaction ->
+                Transaction(transaction) { onCardClick(transaction) }
                 HorizontalDivider(modifier = Modifier.padding(horizontal = cardInnerPadding))
             }
         }
@@ -60,11 +59,11 @@ fun CardTransactionPreview() {
         ) {
             CardTransactions(
                 listOf(
-                    Transaction("Google", Date(), 1000, CardState.EXECUTED),
-                    Transaction("Google", Date(), 1000, CardState.DECLINED),
-                    Transaction("Google", Date(), 1000, CardState.IN_PROGRESS),
-                    Transaction("Google", Date(), 1000, CardState.EXECUTED)
-                )
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.DECLINED,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.IN_PROGRESS,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED,"")
+                ),{}
             )
         }
     }

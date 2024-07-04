@@ -2,17 +2,12 @@ package com.example.banking.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.banking.data.data_source.AccountsDatabase
-import com.example.banking.data.repository.AccountsRepository
-import com.example.banking.data.repository.AccountsRepositoryImpl
-import com.example.banking.data.repository.TransactionRepository
-import com.example.banking.data.repository.TransactionRepositoryImpl
-import com.example.banking.domain.use_case.AccountsUseCases
-import com.example.banking.domain.use_case.GetAccountsUseCase
-import com.example.banking.domain.use_case.GetCurrentAccountUseCase
-import com.example.banking.domain.use_case.GetTransactionsUseCase
-import com.example.banking.domain.use_case.InsertTransactionUseCase
-import com.example.banking.domain.use_case.TransactionsUseCases
+import com.example.banking.data.data_source.db.AccountsDatabase
+import com.example.banking.data.data_source.db.MIGRATION_1_2
+import com.example.banking.data.repository_impl.AccountsRepositoryImpl
+import com.example.banking.data.repository_impl.TransactionRepositoryImpl
+import com.example.banking.domain.repository.AccountsRepository
+import com.example.banking.domain.repository.TransactionRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +25,7 @@ class AppModule {
             app,
             AccountsDatabase::class.java,
             AccountsDatabase.DATABASE_NAME
-        ).build()
+        ).addMigrations(MIGRATION_1_2).build()
     }
 
     @Provides
@@ -41,25 +36,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAccountsUseCases(repository: AccountsRepository): AccountsUseCases {
-        return AccountsUseCases(
-            getAccounts = GetAccountsUseCase(repository),
-            getCurrentAccount = GetCurrentAccountUseCase(repository)
-        )
-    }
-
-    @Provides
-    @Singleton
     fun provideTransactionRepository(db: AccountsDatabase): TransactionRepository {
         return TransactionRepositoryImpl(db.transactionDao())
-    }
-
-    @Provides
-    @Singleton
-    fun provideTransactionsUseCases(repository: TransactionRepository): TransactionsUseCases {
-        return TransactionsUseCases(
-            getTransactions = GetTransactionsUseCase(repository),
-            insertTransaction = InsertTransactionUseCase(repository)
-        )
     }
 }

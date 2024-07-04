@@ -15,5 +15,6 @@ data class Account(
     @ColumnInfo(name = "card_number")
     val cardNumber: String,
     @ColumnInfo(name = "current_card")
-    val currentCard: Boolean
+    var currentCard: Boolean
 )
+

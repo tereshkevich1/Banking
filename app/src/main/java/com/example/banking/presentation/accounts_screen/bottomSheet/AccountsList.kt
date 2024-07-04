@@ -18,8 +18,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.banking.R
+import com.example.banking.data.data_source.Account
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
-import com.example.banking.presentation.models.Account
+
 
 @Composable
 fun AccountsList(
