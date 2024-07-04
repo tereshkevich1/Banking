@@ -5,9 +5,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FilterTransactionsByDateUseCase @Inject constructor () {
-    suspend operator fun invoke(startDate: Long, endDate: Long, transactionList: List<Transaction>) {
-        withContext(Dispatchers.IO) {
+class FilterTransactionsByDateUseCase @Inject constructor() {
+    suspend operator fun invoke(
+        startDate: Long,
+        endDate: Long,
+        transactionList: List<Transaction>
+    ): List<Transaction> {
+        return withContext(Dispatchers.IO) {
             transactionList.filter { it.date in startDate..endDate }
         }
     }

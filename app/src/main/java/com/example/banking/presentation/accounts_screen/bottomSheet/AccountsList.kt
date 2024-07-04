@@ -21,7 +21,6 @@ import com.example.banking.R
 import com.example.banking.data.data_source.Account
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
 
-
 @Composable
 fun AccountsList(
     accountsList: List<Account>,

@@ -1,17 +1,15 @@
-package com.example.banking.presentation.common_vm
+package com.example.banking.presentation.accounts_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.banking.data.data_source.Account
 import com.example.banking.data.data_source.Transaction
 import com.example.banking.domain.use_case.ChangeCurrentAccountUseCase
-import com.example.banking.domain.use_case.FilterTransactionsByDateUseCase
 import com.example.banking.domain.use_case.GetAccountsUseCase
 import com.example.banking.domain.use_case.GetCurrentAccountUseCase
+import com.example.banking.domain.use_case.GetLastTransactionsUseCase
 import com.example.banking.domain.use_case.GetTransactionsUseCase
 import com.example.banking.domain.use_case.InsertDefaultAccountsUseCase
-import com.example.banking.domain.use_case.InsertTransactionUseCase
-import com.example.banking.presentation.models.CardState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,9 +25,7 @@ class AccountsViewModel @Inject constructor(
     private val changeCurrentAccount: ChangeCurrentAccountUseCase,
     private val getAccounts: GetAccountsUseCase,
     private val insertDefaultAccounts: InsertDefaultAccountsUseCase,
-    private val getTransactions: GetTransactionsUseCase,
-    private val insertTransaction: InsertTransactionUseCase,
-    private val filterTransactionsByDate: FilterTransactionsByDateUseCase
+    private val getLastTransactionsUseCase: GetLastTransactionsUseCase,
 ) : ViewModel() {
     // to simplify the code
     private val _currentAccount = MutableStateFlow(Account(0, "", "", "", false))
@@ -38,8 +34,8 @@ class AccountsViewModel @Inject constructor(
     private val _accounts = MutableStateFlow<List<Account>>(emptyList())
     val accounts = _accounts.asStateFlow()
 
-    private val _transactions = MutableStateFlow<List<Transaction>>(emptyList())
-    val transactions = _transactions.asStateFlow()
+    private val _lastTransactions = MutableStateFlow<List<Transaction>>(emptyList())
+    val lastTransactions = _lastTransactions.asStateFlow()
 
     private var transactionJob: Job? = null
 
@@ -80,37 +76,11 @@ class AccountsViewModel @Inject constructor(
     private fun loadTransactions(accountId: Int) {
         transactionJob?.cancel()
         transactionJob = viewModelScope.launch {
-            getTransactions(accountId)
+            getLastTransactionsUseCase(accountId, 4)
                 .flowOn(Dispatchers.IO)
                 .collect { transactions ->
-                    _transactions.emit(transactions)
+                    _lastTransactions.emit(transactions)
                 }
-        }
-    }
-
-    fun addTransaction(
-        companyName: String,
-        transactionNumber: String,
-        amount: Long,
-        state: CardState = CardState.IN_PROGRESS
-    ) {
-        viewModelScope.launch {
-            val transaction = Transaction(
-                id = 0,
-                accountId = currentAccount.value.id,
-                companyName = companyName,
-                date = System.currentTimeMillis(),
-                amount = amount,
-                state = state,
-                transactionNumber = transactionNumber
-            )
-            insertTransaction(transaction)
-        }
-    }
-
-    fun filterTransactionsByDate(startDate: Long, endDate: Long) {
-        viewModelScope.launch {
-            filterTransactionsByDate(startDate, endDate, transactions.value)
         }
     }
 }

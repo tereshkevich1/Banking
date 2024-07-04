@@ -9,7 +9,6 @@ import androidx.compose.ui.res.colorResource
 import com.example.banking.R
 import com.example.banking.data.data_source.Account
 
-
 @Composable
 fun getCardBackgroundColor(item: Account, currentAccount: Account): Color {
     val targetValue = if (item == currentAccount) {
