@@ -1,7 +1,7 @@
 package com.example.banking.data.repository_impl
 
-import com.example.banking.data.data_source.Account
-import com.example.banking.data.data_source.AccountDao
+import com.example.banking.data.db.entity.Account
+import com.example.banking.data.db.dao.AccountDao
 import com.example.banking.domain.repository.AccountsRepository
 import kotlinx.coroutines.flow.Flow
 

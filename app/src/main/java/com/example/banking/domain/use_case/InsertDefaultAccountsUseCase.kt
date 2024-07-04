@@ -1,10 +1,10 @@
 package com.example.banking.domain.use_case
 
-import com.example.banking.data.data_source.Account
-import com.example.banking.data.data_source.Transaction
+import com.example.banking.data.db.entity.Account
+import com.example.banking.data.db.entity.Transaction
 import com.example.banking.domain.repository.AccountsRepository
 import com.example.banking.domain.repository.TransactionRepository
-import com.example.banking.presentation.models.CardState
+import com.example.banking.util.CardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Amazon",
                     System.currentTimeMillis(),
                     500,
-                    CardState.EXECUTED,
+                    CardState.IN_PROGRESS,
                     "23572835segi285235"
                 ),
                 Transaction(
@@ -67,7 +67,7 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Spotify",
                     System.currentTimeMillis(),
                     100,
-                    CardState.EXECUTED,
+                    CardState.IN_PROGRESS,
                     "23572835segi285235"
                 ),
                 Transaction(
@@ -76,7 +76,7 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Uber",
                     System.currentTimeMillis(),
                     300,
-                    CardState.EXECUTED,
+                    CardState.DECLINED,
                     "23572835segi285235"
                 )
             )

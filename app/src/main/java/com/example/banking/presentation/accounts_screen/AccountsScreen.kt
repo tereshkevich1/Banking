@@ -27,12 +27,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.accounts_screen.bottomSheet.AccountsBottomSheet
-import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
-import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
-import com.example.banking.presentation.accounts_screen.cards.transaction_card.RecentTransactionRow
+import com.example.banking.presentation.accounts_screen.components.FloatingActionButtonBox
+import com.example.banking.presentation.accounts_screen.components.bottomSheet.AccountsBottomSheet
+import com.example.banking.presentation.accounts_screen.components.cards.account.CardAccount
+import com.example.banking.presentation.accounts_screen.components.cards.transaction_card.CardTransactions
+import com.example.banking.presentation.accounts_screen.components.cards.transaction_card.RecentTransactionRow
 import com.example.banking.presentation.navigation.Screen
-import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.common.SharedTransactionViewModel
 import com.example.banking.presentation.navigation.ARG_ACCOUNT_ID
 import com.example.banking.ui.theme.BankingTheme
 

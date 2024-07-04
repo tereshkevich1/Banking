@@ -2,13 +2,12 @@ package com.example.banking.presentation.accounts_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.banking.data.data_source.Account
-import com.example.banking.data.data_source.Transaction
+import com.example.banking.data.db.entity.Account
+import com.example.banking.data.db.entity.Transaction
 import com.example.banking.domain.use_case.ChangeCurrentAccountUseCase
 import com.example.banking.domain.use_case.GetAccountsUseCase
 import com.example.banking.domain.use_case.GetCurrentAccountUseCase
 import com.example.banking.domain.use_case.GetLastTransactionsUseCase
-import com.example.banking.domain.use_case.GetTransactionsUseCase
 import com.example.banking.domain.use_case.InsertDefaultAccountsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

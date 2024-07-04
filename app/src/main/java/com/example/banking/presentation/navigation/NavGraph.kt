@@ -19,7 +19,7 @@ import com.example.banking.presentation.accounts_screen.AccountsScreen
 import com.example.banking.presentation.accounts_screen.AccountsViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionsScreen
-import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.common.SharedTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionsScreen
 

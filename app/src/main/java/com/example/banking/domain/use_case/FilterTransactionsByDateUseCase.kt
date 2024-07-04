@@ -1,8 +1,9 @@
 package com.example.banking.domain.use_case
 
-import com.example.banking.data.data_source.Transaction
+import com.example.banking.data.db.entity.Transaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FilterTransactionsByDateUseCase @Inject constructor() {
@@ -12,7 +13,9 @@ class FilterTransactionsByDateUseCase @Inject constructor() {
         transactionList: List<Transaction>
     ): List<Transaction> {
         return withContext(Dispatchers.IO) {
-            transactionList.filter { it.date in startDate..endDate }
+            val oneDayInMillis = TimeUnit.DAYS.toMillis(1)
+            val startMillis = startDate - oneDayInMillis
+            transactionList.filter { it.date in startMillis..endDate }
         }
     }
 }

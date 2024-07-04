@@ -14,13 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.create_transaction_screen.components.TextFieldWithLabel
+import com.example.banking.presentation.common.PrimaryButton
+import com.example.banking.presentation.common.SharedTransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
@@ -98,10 +101,11 @@ fun CreateTransactionsScreen(
                     label = amountLabel,
                     value = transactionInputViewModel.amount,
                     onValueChange = { transactionInputViewModel.updateAmount(it) },
-                    modifier = Modifier
+                    modifier = Modifier,
+                    keyboardType = KeyboardType.Number
                 )
 
-                OkButton(
+                PrimaryButton(
                     onClick = {
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
@@ -115,6 +119,7 @@ fun CreateTransactionsScreen(
                             navController.popBackStack()
                         }
                     },
+                    buttonText = stringResource(id = R.string.ok),
                     modifier = Modifier.padding(top = innerPadding),
                     transactionInputViewModel.isButtonEnable
                 )
