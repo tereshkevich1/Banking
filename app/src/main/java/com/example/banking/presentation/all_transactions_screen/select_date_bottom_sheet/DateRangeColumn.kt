@@ -17,7 +17,7 @@ import com.example.banking.presentation.create_transaction_screen.OkButton
 
 @Composable
 fun DateRangeColumn(
-    onSubmitButtonClick: () -> Unit,
+    onSubmitButtonClick: (startDate: Long, endDate: Long) -> Unit,
     viewModel: DateRangeViewModel
 ) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
@@ -74,7 +74,9 @@ fun DateRangeColumn(
 
         OkButton(onClick = {
             viewModel.onSubmit()
-            onSubmitButtonClick()
+            if (!viewModel.hasError) {
+                onSubmitButtonClick(viewModel.selectedStartDate, viewModel.selectedEndDate)
+            }
         }, modifier = Modifier.padding(vertical = innerPadding), isButtonEnabled = true)
     }
 }

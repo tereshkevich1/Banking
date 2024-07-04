@@ -1,5 +1,6 @@
 package com.example.banking.presentation.all_transactions_screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,20 +22,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.all_transactions_screen.select_date_bottom_sheet.SelectDateBottomSheet
-import com.example.banking.presentation.navigation.Screen
 import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.navigation.Screen
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun AllTransactionsScreen(
-    accountsViewModel: AccountsViewModel = hiltViewModel(),
+    allTransactionViewModel: AllTransactionViewModel = hiltViewModel(),
     sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val transactions by accountsViewModel.transactions.collectAsState()
+    val transactions by allTransactionViewModel.transactions.collectAsState()
     val startPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_start)
     val endPadding = dimensionResource(id = R.dimen.all_transactions_horizontal_padding_end)
 
@@ -56,7 +56,10 @@ fun AllTransactionsScreen(
         ) {
             if (showSheet) {
                 SelectDateBottomSheet(
-                    onSubmitButtonClick = { showSheet = false },
+                    onSubmitButtonClick = { startDate, endDate ->
+                        allTransactionViewModel.filterTransactionsByDate(startDate, endDate)
+                        showSheet = false
+                    },
                     onDismiss = { showSheet = false }
                 )
             }

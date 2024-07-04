@@ -31,9 +31,9 @@ import com.example.banking.presentation.accounts_screen.bottomSheet.AccountsBott
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.RecentTransactionRow
-import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.navigation.Screen
 import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.navigation.ARG_ACCOUNT_ID
 import com.example.banking.ui.theme.BankingTheme
 
 @ExperimentalMaterial3Api
@@ -95,12 +95,17 @@ fun AccountsScreen(
                 RecentTransactionRow {
                     val currentState = lifecycleOwner.lifecycle.currentState
                     if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                        navController.navigate(Screen.AllTransactions.route)
+                        navController.navigate(
+                            Screen.AllTransactions.route.replace(
+                                "{$ARG_ACCOUNT_ID}",
+                                currentAccount.id.toString()
+                            )
+                        )
                     }
                 }
 
                 CardTransactions(
-                    transactions = accountsViewModel.transactions.collectAsState().value,
+                    transactions = accountsViewModel.lastTransactions.collectAsState().value,
                     onCardClick = {
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
@@ -118,7 +123,12 @@ fun AccountsScreen(
                     onClick = {
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                            navController.navigate(Screen.CreateTransaction.route)
+                            navController.navigate(
+                                Screen.CreateTransaction.route.replace(
+                                    "{$ARG_ACCOUNT_ID}",
+                                    currentAccount.id.toString()
+                                )
+                            )
                         }
                     }
                 )

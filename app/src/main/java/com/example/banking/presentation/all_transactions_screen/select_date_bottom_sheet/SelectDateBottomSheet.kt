@@ -22,7 +22,7 @@ import com.example.banking.ui.theme.BankingTheme
 @Composable
 fun SelectDateBottomSheet(
     onDismiss: () -> Unit,
-    onSubmitButtonClick: () -> Unit
+    onSubmitButtonClick: (startDate: Long, endDate: Long) -> Unit
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
     val containerColor = colorResource(id = R.color.surface_background_color)
@@ -31,7 +31,10 @@ fun SelectDateBottomSheet(
         containerColor = containerColor,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
-        DateRangeColumn(onSubmitButtonClick, viewModel = DateRangeViewModel())
+        DateRangeColumn(
+            onSubmitButtonClick = onSubmitButtonClick,
+            viewModel = DateRangeViewModel()
+        )
     }
 }
 

@@ -9,7 +9,6 @@ import androidx.compose.ui.res.colorResource
 import com.example.banking.R
 import com.example.banking.data.data_source.Account
 
-
 @ExperimentalMaterial3Api
 @Composable
 fun AccountsBottomSheet(

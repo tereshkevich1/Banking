@@ -11,12 +11,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.banking.presentation.accounts_screen.AccountsScreen
-import com.example.banking.presentation.common_vm.AccountsViewModel
+import com.example.banking.presentation.accounts_screen.AccountsViewModel
+import com.example.banking.presentation.all_transactions_screen.AllTransactionViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionsScreen
 import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.create_transaction_screen.CreateTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,30 +48,42 @@ fun SetUpNavGraph(navController: NavHostController) {
 
         composable(
             route = Screen.AllTransactions.route,
+            arguments = listOf(navArgument(ARG_ACCOUNT_ID) { type = NavType.StringType }),
             enterTransition = { enterSlideTransition() },
             popExitTransition = { popExitSlideTransition() }
-        ) {
+        ) { backStackEntry ->
+            val accountId = backStackEntry.arguments?.getString(ARG_ACCOUNT_ID)?.toIntOrNull()
+            val allTransactionViewModel: AllTransactionViewModel = hiltViewModel()
+            allTransactionViewModel.currentAccountId = accountId
+
             val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
-            val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
             val sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(parentEntry)
             AllTransactionsScreen(
                 navController = navController,
-                accountsViewModel = accountsViewModel,
-                sharedTransactionViewModel = sharedTransactionViewModel
+                sharedTransactionViewModel = sharedTransactionViewModel,
+                allTransactionViewModel = allTransactionViewModel
             )
         }
 
         composable(
             route = Screen.CreateTransaction.route,
+            arguments = listOf(navArgument(ARG_ACCOUNT_ID) {
+                type = NavType.StringType
+            }),
             enterTransition = { enterSlideTransition() },
             popExitTransition = { popExitSlideTransition() }
-        ) {
-            val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
-            val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
-            val sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(parentEntry)
+        ) { backStackEntry ->
+            val accountId = backStackEntry.arguments?.getString(ARG_ACCOUNT_ID)?.toIntOrNull()
+            val createTransactionViewModel: CreateTransactionViewModel = hiltViewModel()
+            createTransactionViewModel.currentAccountId = accountId
+
+            val parentEntry =
+                remember { navController.getBackStackEntry(Screen.Accounts.route) }
+            val sharedTransactionViewModel: SharedTransactionViewModel =
+                hiltViewModel(parentEntry)
             CreateTransactionsScreen(
                 navController = navController,
-                accountsViewModel = accountsViewModel,
+                createTransactionViewModel = createTransactionViewModel,
                 sharedTransactionViewModel = sharedTransactionViewModel
             )
         }

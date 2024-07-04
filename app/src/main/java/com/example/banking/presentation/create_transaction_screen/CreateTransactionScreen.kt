@@ -20,21 +20,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.common_vm.SharedTransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun CreateTransactionsScreen(
-    accountsViewModel: AccountsViewModel = hiltViewModel(),
     createTransactionViewModel: CreateTransactionViewModel = hiltViewModel(),
+    transactionInputViewModel: TransactionInputViewModel = hiltViewModel(),
     sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val transaction = remember {
         sharedTransactionViewModel.getAndResetTransaction()
     }
-    createTransactionViewModel.setUpFields(transaction)
+    transactionInputViewModel.setUpFields(transaction)
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val transactionAppliedLabel = stringResource(id = R.string.transaction_applied)
@@ -71,34 +70,34 @@ fun CreateTransactionsScreen(
 
                 TextFieldWithLabel(
                     label = transactionAppliedLabel,
-                    value = createTransactionViewModel.transactionApplied,
-                    onValueChange = { createTransactionViewModel.updateTransactionApplied(it) },
+                    value = transactionInputViewModel.transactionApplied,
+                    onValueChange = { transactionInputViewModel.updateTransactionApplied(it) },
                     modifier = Modifier
                 )
                 TextFieldWithLabel(
                     label = transactionNumberLabel,
-                    value = createTransactionViewModel.transactionNumber,
-                    onValueChange = { createTransactionViewModel.updateTransactionNumber(it) },
+                    value = transactionInputViewModel.transactionNumber,
+                    onValueChange = { transactionInputViewModel.updateTransactionNumber(it) },
                     modifier = Modifier
                 )
                 transaction?.let {
                     TextFieldWithLabel(
                         label = dateLabel,
-                        value = createTransactionViewModel.date,
-                        onValueChange = { createTransactionViewModel.updateDate(it) },
+                        value = transactionInputViewModel.date,
+                        onValueChange = { transactionInputViewModel.updateDate(it) },
                         modifier = Modifier
                     )
                 }
                 TextFieldWithLabel(
                     label = transactionStatusLabel,
-                    value = createTransactionViewModel.transactionStatus,
-                    onValueChange = { createTransactionViewModel.updateTransactionStatus(it) },
+                    value = transactionInputViewModel.transactionStatus,
+                    onValueChange = { transactionInputViewModel.updateTransactionStatus(it) },
                     modifier = Modifier
                 )
                 TextFieldWithLabel(
                     label = amountLabel,
-                    value = createTransactionViewModel.amount,
-                    onValueChange = { createTransactionViewModel.updateAmount(it) },
+                    value = transactionInputViewModel.amount,
+                    onValueChange = { transactionInputViewModel.updateAmount(it) },
                     modifier = Modifier
                 )
 
@@ -107,17 +106,17 @@ fun CreateTransactionsScreen(
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                             transaction ?: run {
-                                accountsViewModel.addTransaction(
-                                    createTransactionViewModel.transactionApplied,
-                                    createTransactionViewModel.transactionNumber,
-                                    createTransactionViewModel.amount.toLong()
+                                createTransactionViewModel.addTransaction(
+                                    transactionInputViewModel.transactionApplied,
+                                    transactionInputViewModel.transactionNumber,
+                                    transactionInputViewModel.amount.toLong()
                                 )
                             }
                             navController.popBackStack()
                         }
                     },
                     modifier = Modifier.padding(top = innerPadding),
-                    createTransactionViewModel.isButtonEnable
+                    transactionInputViewModel.isButtonEnable
                 )
             }
         }

@@ -14,4 +14,8 @@ class TransactionRepositoryImpl(private val transactionDao: TransactionDao) :
     override suspend fun insertTransaction(transaction: Transaction) {
         return transactionDao.insertTransaction(transaction)
     }
+
+    override suspend fun getLastTransactions(accountId: Int, count: Int): Flow<List<Transaction>> {
+        return transactionDao.getLastTransactions(accountId, count)
+    }
 }

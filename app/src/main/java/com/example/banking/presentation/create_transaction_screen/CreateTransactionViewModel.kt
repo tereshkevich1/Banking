@@ -1,66 +1,39 @@
 package com.example.banking.presentation.create_transaction_screen
 
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.banking.data.data_source.Transaction
+import com.example.banking.domain.use_case.InsertTransactionUseCase
+import com.example.banking.presentation.models.CardState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateTransactionViewModel @Inject constructor() :
+class CreateTransactionViewModel @Inject constructor(private val insertTransaction: InsertTransactionUseCase) :
     ViewModel() {
-    val isButtonEnable by derivedStateOf {
-        transactionApplied.isNotEmpty() &&
-                transactionNumber.isNotEmpty() &&
-                transactionStatus.isNotEmpty() &&
-                amount.isNotEmpty()
-    }
+    var currentAccountId: Int? = null
 
-    var transactionApplied by mutableStateOf("")
-        private set
-
-    var transactionNumber by mutableStateOf("")
-        private set
-
-    var date by mutableStateOf("")
-        private set
-
-    var transactionStatus by mutableStateOf("")
-        private set
-
-    var amount by mutableStateOf("")
-        private set
-
-    fun updateTransactionApplied(input: String) {
-        transactionApplied = input
-    }
-
-    fun updateTransactionNumber(input: String) {
-        transactionNumber = input
-    }
-
-    fun updateDate(input: String) {
-        date = input
-    }
-
-    fun updateTransactionStatus(input: String) {
-        transactionStatus = input
-    }
-
-    fun updateAmount(input: String) {
-        amount = input
-    }
-
-    fun setUpFields(transactionToSetUp: Transaction?) {
-        transactionToSetUp?.let {
-            transactionApplied = transactionToSetUp.companyName
-            transactionNumber = transactionToSetUp.transactionNumber
-            date = transactionToSetUp.date.toString()
-            transactionStatus = transactionToSetUp.state.toString()
-            amount = transactionToSetUp.amount.toString()
+    fun addTransaction(
+        companyName: String,
+        transactionNumber: String,
+        amount: Long,
+        state: CardState = CardState.IN_PROGRESS
+    ) {
+        val accountId = currentAccountId
+        accountId?.let {
+            viewModelScope.launch {
+                val transaction = Transaction(
+                    id = 0,
+                    accountId = accountId,
+                    companyName = companyName,
+                    date = System.currentTimeMillis(),
+                    amount = amount,
+                    state = state,
+                    transactionNumber = transactionNumber
+                )
+                insertTransaction(transaction)
+            }
         }
     }
 }
