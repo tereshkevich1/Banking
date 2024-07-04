@@ -2,7 +2,8 @@ package com.example.banking.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.banking.data.data_source.AccountsDatabase
+import com.example.banking.data.data_source.db.AccountsDatabase
+import com.example.banking.data.data_source.db.MIGRATION_1_2
 import com.example.banking.data.repository_impl.AccountsRepositoryImpl
 import com.example.banking.data.repository_impl.TransactionRepositoryImpl
 import com.example.banking.domain.repository.AccountsRepository
@@ -24,7 +25,7 @@ class AppModule {
             app,
             AccountsDatabase::class.java,
             AccountsDatabase.DATABASE_NAME
-        ).build()
+        ).addMigrations(MIGRATION_1_2).build()
     }
 
     @Provides

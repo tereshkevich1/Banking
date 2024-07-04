@@ -2,7 +2,6 @@
 
 package com.example.banking.presentation.accounts_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,19 +27,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.data.data_source.Transaction
 import com.example.banking.presentation.accounts_screen.bottomSheet.AccountsBottomSheet
 import com.example.banking.presentation.accounts_screen.cards.account.CardAccount
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
 import com.example.banking.presentation.accounts_screen.cards.transaction_card.RecentTransactionRow
-import com.example.banking.presentation.models.CardState
+import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.navigation.Screen
+import com.example.banking.presentation.common_vm.SharedTransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun AccountsScreen(
     accountsViewModel: AccountsViewModel = hiltViewModel(),
+    sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val currentAccount by accountsViewModel.currentAccount.collectAsState()
@@ -60,8 +60,8 @@ fun AccountsScreen(
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor)
+            .fillMaxSize(),
+        containerColor = backgroundColor
     ) { contentPadding ->
         Box(
             modifier = Modifier
@@ -100,8 +100,15 @@ fun AccountsScreen(
                 }
 
                 CardTransactions(
-                    accountsViewModel.transactions.collectAsState().value,
-                    4
+                    transactions = accountsViewModel.transactions.collectAsState().value,
+                    onCardClick = {
+                        val currentState = lifecycleOwner.lifecycle.currentState
+                        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                            sharedTransactionViewModel.updateTransaction(it)
+                            navController.navigate(Screen.CreateTransaction.route)
+                        }
+                    },
+                    maxVisibleItems = 4
                 )
 
                 FloatingActionButtonBox(
@@ -112,17 +119,6 @@ fun AccountsScreen(
                         val currentState = lifecycleOwner.lifecycle.currentState
                         if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                             navController.navigate(Screen.CreateTransaction.route)
-                            // it will be fixed
-                            accountsViewModel.addTransaction(
-                                Transaction(
-                                    0,
-                                    currentAccount.id,
-                                    "SS",
-                                    System.currentTimeMillis(),
-                                    100,
-                                    CardState.IN_PROGRESS
-                                )
-                            )
                         }
                     }
                 )

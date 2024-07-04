@@ -19,14 +19,14 @@ import com.example.banking.presentation.accounts_screen.cards.ChevronForwardIcon
 
 
 @Composable
-fun Transaction(transaction: Transaction) {
+fun Transaction(transaction: Transaction, onCardClick: (Transaction) -> Unit) {
     val innerPadding = dimensionResource(id = R.dimen.inner_padding)
     val amount = "$${transaction.amount}"
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .clickable { onCardClick(transaction) }
             .padding(innerPadding),
         verticalAlignment = Alignment.Top
     ) {

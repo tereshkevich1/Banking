@@ -31,7 +31,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Google",
                     System.currentTimeMillis(),
                     1090,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 ),
                 Transaction(
                     0,
@@ -39,7 +40,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Amazon",
                     System.currentTimeMillis(),
                     500,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 ),
                 Transaction(
                     0,
@@ -47,7 +49,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Apple",
                     System.currentTimeMillis(),
                     700,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 ),
                 Transaction(
                     0,
@@ -55,7 +58,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Netflix",
                     System.currentTimeMillis(),
                     150,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 ),
                 Transaction(
                     0,
@@ -63,7 +67,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Spotify",
                     System.currentTimeMillis(),
                     100,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 ),
                 Transaction(
                     0,
@@ -71,7 +76,8 @@ class InsertDefaultAccountsUseCase @Inject constructor(
                     "Uber",
                     System.currentTimeMillis(),
                     300,
-                    CardState.EXECUTED
+                    CardState.EXECUTED,
+                    "23572835segi285235"
                 )
             )
 

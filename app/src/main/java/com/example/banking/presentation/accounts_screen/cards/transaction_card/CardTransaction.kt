@@ -26,6 +26,7 @@ import java.util.Date
 @Composable
 fun CardTransactions(
     transactions: List<Transaction>,
+    onCardClick: (Transaction) -> Unit,
     maxVisibleItems: Int = Int.MAX_VALUE
 ) {
     val cardBackgroundColor = colorResource(id = R.color.account_card_background_color)
@@ -39,7 +40,7 @@ fun CardTransactions(
     ) {
         LazyColumn(modifier = Modifier) {
             items(transactions.take(maxVisibleItems)) { transaction ->
-                Transaction(transaction)
+                Transaction(transaction) { onCardClick(transaction) }
                 HorizontalDivider(modifier = Modifier.padding(horizontal = cardInnerPadding))
             }
         }
@@ -58,11 +59,11 @@ fun CardTransactionPreview() {
         ) {
             CardTransactions(
                 listOf(
-                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED),
-                    Transaction(1,1,"Google", Date().time, 1000, CardState.DECLINED),
-                    Transaction(1,1,"Google", Date().time, 1000, CardState.IN_PROGRESS),
-                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED)
-                )
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.DECLINED,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.IN_PROGRESS,""),
+                    Transaction(1,1,"Google", Date().time, 1000, CardState.EXECUTED,"")
+                ),{}
             )
         }
     }

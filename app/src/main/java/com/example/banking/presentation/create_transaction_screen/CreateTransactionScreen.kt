@@ -1,6 +1,5 @@
 package com.example.banking.presentation.create_transaction_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,23 +9,34 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.accounts_screen.AccountsViewModel
+import com.example.banking.presentation.common_vm.AccountsViewModel
+import com.example.banking.presentation.common_vm.SharedTransactionViewModel
 import com.example.banking.ui.theme.BankingTheme
 
 @Composable
 fun CreateTransactionsScreen(
     accountsViewModel: AccountsViewModel = hiltViewModel(),
     createTransactionViewModel: CreateTransactionViewModel = hiltViewModel(),
+    sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val transaction = remember {
+        sharedTransactionViewModel.getAndResetTransaction()
+    }
+    createTransactionViewModel.setUpFields(transaction)
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     val transactionAppliedLabel = stringResource(id = R.string.transaction_applied)
     val transactionNumberLabel = stringResource(id = R.string.transaction_number)
     val dateLabel = stringResource(id = R.string.date)
@@ -40,8 +50,8 @@ fun CreateTransactionsScreen(
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor)
+            .fillMaxSize(),
+        containerColor = backgroundColor
     ) { contentPadding ->
         Box(
             modifier = Modifier
@@ -71,12 +81,14 @@ fun CreateTransactionsScreen(
                     onValueChange = { createTransactionViewModel.updateTransactionNumber(it) },
                     modifier = Modifier
                 )
-                TextFieldWithLabel(
-                    label = dateLabel,
-                    value = createTransactionViewModel.date,
-                    onValueChange = { createTransactionViewModel.updateDate(it) },
-                    modifier = Modifier
-                )
+                transaction?.let {
+                    TextFieldWithLabel(
+                        label = dateLabel,
+                        value = createTransactionViewModel.date,
+                        onValueChange = { createTransactionViewModel.updateDate(it) },
+                        modifier = Modifier
+                    )
+                }
                 TextFieldWithLabel(
                     label = transactionStatusLabel,
                     value = createTransactionViewModel.transactionStatus,
@@ -91,7 +103,19 @@ fun CreateTransactionsScreen(
                 )
 
                 OkButton(
-                    onClick = {},
+                    onClick = {
+                        val currentState = lifecycleOwner.lifecycle.currentState
+                        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                            transaction ?: run {
+                                accountsViewModel.addTransaction(
+                                    createTransactionViewModel.transactionApplied,
+                                    createTransactionViewModel.transactionNumber,
+                                    createTransactionViewModel.amount.toLong()
+                                )
+                            }
+                            navController.popBackStack()
+                        }
+                    },
                     modifier = Modifier.padding(top = innerPadding),
                     createTransactionViewModel.isButtonEnable
                 )

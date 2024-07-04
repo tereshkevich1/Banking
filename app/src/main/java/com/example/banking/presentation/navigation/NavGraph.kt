@@ -14,8 +14,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.banking.presentation.accounts_screen.AccountsScreen
-import com.example.banking.presentation.accounts_screen.AccountsViewModel
+import com.example.banking.presentation.common_vm.AccountsViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionsScreen
+import com.example.banking.presentation.common_vm.SharedTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,9 +49,11 @@ fun SetUpNavGraph(navController: NavHostController) {
         ) {
             val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
             val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
+            val sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(parentEntry)
             AllTransactionsScreen(
                 navController = navController,
-                accountsViewModel = accountsViewModel
+                accountsViewModel = accountsViewModel,
+                sharedTransactionViewModel = sharedTransactionViewModel
             )
         }
 
@@ -61,9 +64,11 @@ fun SetUpNavGraph(navController: NavHostController) {
         ) {
             val parentEntry = remember { navController.getBackStackEntry(Screen.Accounts.route) }
             val accountsViewModel: AccountsViewModel = hiltViewModel(parentEntry)
+            val sharedTransactionViewModel: SharedTransactionViewModel = hiltViewModel(parentEntry)
             CreateTransactionsScreen(
                 navController = navController,
-                accountsViewModel = accountsViewModel
+                accountsViewModel = accountsViewModel,
+                sharedTransactionViewModel = sharedTransactionViewModel
             )
         }
     }
