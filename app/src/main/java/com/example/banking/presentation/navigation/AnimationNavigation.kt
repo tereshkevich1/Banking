@@ -25,3 +25,4 @@ fun popExitSlideTransition(): ExitTransition = slideOutHorizontally(
     targetOffsetX = { fullWidth -> fullWidth },
     animationSpec = tween(500)
 )
+

@@ -32,6 +32,7 @@ fun SetUpNavGraph(navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         startDestination = Screen.Accounts.route
     ) {
+
         composable(
             route = Screen.Accounts.route,
             enterTransition = { fadeIn(tween(1000)) },
@@ -50,6 +51,8 @@ fun SetUpNavGraph(navController: NavHostController) {
             route = Screen.AllTransactions.route,
             arguments = listOf(navArgument(ARG_ACCOUNT_ID) { type = NavType.StringType }),
             enterTransition = { enterSlideTransition() },
+            exitTransition = { exitSlideTransition() },
+            popEnterTransition = { popEnterSlideTransition() },
             popExitTransition = { popExitSlideTransition() }
         ) { backStackEntry ->
             val accountId = backStackEntry.arguments?.getString(ARG_ACCOUNT_ID)?.toIntOrNull()
