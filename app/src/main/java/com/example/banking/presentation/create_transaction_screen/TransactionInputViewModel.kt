@@ -8,9 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.example.banking.data.db.entity.Transaction
 import com.example.banking.domain.use_case.ConvertLongToDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
