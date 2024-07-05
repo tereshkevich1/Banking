@@ -20,6 +20,8 @@ class TransactionInputViewModel @Inject constructor(private val convertLongToDat
                 amount.isNotEmpty()
     }
 
+    var readOnly = false
+
     var transactionApplied by mutableStateOf("")
         private set
 
@@ -62,6 +64,7 @@ class TransactionInputViewModel @Inject constructor(private val convertLongToDat
             date = convertLongToDate(transactionToSetUp.date)
             transactionStatus = transactionToSetUp.state.toString()
             amount = transactionToSetUp.amount.toString()
+            readOnly = true
         }
     }
 }

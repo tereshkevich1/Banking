@@ -75,34 +75,39 @@ fun CreateTransactionsScreen(
                     label = transactionAppliedLabel,
                     value = transactionInputViewModel.transactionApplied,
                     onValueChange = { transactionInputViewModel.updateTransactionApplied(it) },
-                    modifier = Modifier
+                    modifier = Modifier,
+                    readOnly = transactionInputViewModel.readOnly
                 )
                 TextFieldWithLabel(
                     label = transactionNumberLabel,
                     value = transactionInputViewModel.transactionNumber,
                     onValueChange = { transactionInputViewModel.updateTransactionNumber(it) },
-                    modifier = Modifier
+                    modifier = Modifier,
+                    readOnly = transactionInputViewModel.readOnly
                 )
                 transaction?.let {
                     TextFieldWithLabel(
                         label = dateLabel,
                         value = transactionInputViewModel.date,
                         onValueChange = { transactionInputViewModel.updateDate(it) },
-                        modifier = Modifier
+                        modifier = Modifier,
+                        readOnly = transactionInputViewModel.readOnly
                     )
                 }
                 TextFieldWithLabel(
                     label = transactionStatusLabel,
                     value = transactionInputViewModel.transactionStatus,
                     onValueChange = { transactionInputViewModel.updateTransactionStatus(it) },
-                    modifier = Modifier
+                    modifier = Modifier,
+                    readOnly = transactionInputViewModel.readOnly
                 )
                 TextFieldWithLabel(
                     label = amountLabel,
                     value = transactionInputViewModel.amount,
                     onValueChange = { transactionInputViewModel.updateAmount(it) },
                     modifier = Modifier,
-                    keyboardType = KeyboardType.Number
+                    keyboardType = KeyboardType.Number,
+                    readOnly = transactionInputViewModel.readOnly
                 )
 
                 PrimaryButton(

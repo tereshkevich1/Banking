@@ -31,6 +31,7 @@ fun TextFieldWithLabel(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    readOnly: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
 ) {
     val bottomPadding = dimensionResource(id = R.dimen.small_padding)
@@ -54,6 +55,7 @@ fun TextFieldWithLabel(
                 .fillMaxWidth()
                 .padding(bottom = textFieldBottomPadding)
                 .height(48.dp),
+            readOnly = readOnly,
             textStyle = MaterialTheme.typography.bodySmall,
             shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
