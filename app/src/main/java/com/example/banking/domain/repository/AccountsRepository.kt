@@ -1,6 +1,6 @@
 package com.example.banking.domain.repository
 
-import com.example.banking.data.data_source.Account
+import com.example.banking.data.db.entity.Account
 import kotlinx.coroutines.flow.Flow
 
 interface AccountsRepository {

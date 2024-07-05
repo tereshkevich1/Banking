@@ -1,6 +1,5 @@
 package com.example.banking.presentation.all_transactions_screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,9 +21,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.banking.R
-import com.example.banking.presentation.accounts_screen.cards.transaction_card.CardTransactions
-import com.example.banking.presentation.all_transactions_screen.select_date_bottom_sheet.SelectDateBottomSheet
-import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.accounts_screen.components.cards.transaction_card.CardTransactions
+import com.example.banking.presentation.all_transactions_screen.components.NavTopPanel
+import com.example.banking.presentation.all_transactions_screen.components.select_date_bottom_sheet.SelectDateBottomSheet
+import com.example.banking.presentation.common.SharedTransactionViewModel
 import com.example.banking.presentation.navigation.Screen
 import com.example.banking.ui.theme.BankingTheme
 

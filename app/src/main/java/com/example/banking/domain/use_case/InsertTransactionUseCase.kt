@@ -1,6 +1,6 @@
 package com.example.banking.domain.use_case
 
-import com.example.banking.data.data_source.Transaction
+import com.example.banking.data.db.entity.Transaction
 import com.example.banking.domain.repository.TransactionRepository
 import javax.inject.Inject
 

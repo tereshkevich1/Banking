@@ -2,7 +2,7 @@ package com.example.banking.presentation.all_transactions_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.banking.data.data_source.Transaction
+import com.example.banking.data.db.entity.Transaction
 import com.example.banking.domain.use_case.FilterTransactionsByDateUseCase
 import com.example.banking.domain.use_case.GetTransactionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

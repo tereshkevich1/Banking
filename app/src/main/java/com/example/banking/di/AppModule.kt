@@ -2,8 +2,8 @@ package com.example.banking.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.banking.data.data_source.db.AccountsDatabase
-import com.example.banking.data.data_source.db.MIGRATION_1_2
+import com.example.banking.data.db.AccountsDatabase
+import com.example.banking.data.db.migration.MIGRATION_1_2
 import com.example.banking.data.repository_impl.AccountsRepositoryImpl
 import com.example.banking.data.repository_impl.TransactionRepositoryImpl
 import com.example.banking.domain.repository.AccountsRepository

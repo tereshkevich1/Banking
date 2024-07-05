@@ -19,7 +19,7 @@ import com.example.banking.presentation.accounts_screen.AccountsScreen
 import com.example.banking.presentation.accounts_screen.AccountsViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionViewModel
 import com.example.banking.presentation.all_transactions_screen.AllTransactionsScreen
-import com.example.banking.presentation.common_vm.SharedTransactionViewModel
+import com.example.banking.presentation.common.SharedTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionViewModel
 import com.example.banking.presentation.create_transaction_screen.CreateTransactionsScreen
 
@@ -32,6 +32,7 @@ fun SetUpNavGraph(navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         startDestination = Screen.Accounts.route
     ) {
+
         composable(
             route = Screen.Accounts.route,
             enterTransition = { fadeIn(tween(1000)) },
@@ -50,6 +51,8 @@ fun SetUpNavGraph(navController: NavHostController) {
             route = Screen.AllTransactions.route,
             arguments = listOf(navArgument(ARG_ACCOUNT_ID) { type = NavType.StringType }),
             enterTransition = { enterSlideTransition() },
+            exitTransition = { exitSlideTransition() },
+            popEnterTransition = { popEnterSlideTransition() },
             popExitTransition = { popExitSlideTransition() }
         ) { backStackEntry ->
             val accountId = backStackEntry.arguments?.getString(ARG_ACCOUNT_ID)?.toIntOrNull()
