@@ -6,11 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.banking.data.db.entity.Transaction
+import com.example.banking.domain.use_case.ConvertLongToDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionInputViewModel @Inject constructor() :
+class TransactionInputViewModel @Inject constructor(private val convertLongToDate: ConvertLongToDateUseCase) :
     ViewModel() {
     val isButtonEnable by derivedStateOf {
         transactionApplied.isNotEmpty() &&
@@ -58,7 +62,7 @@ class TransactionInputViewModel @Inject constructor() :
         transactionToSetUp?.let {
             transactionApplied = transactionToSetUp.companyName
             transactionNumber = transactionToSetUp.transactionNumber
-            date = transactionToSetUp.date.toString()
+            date = convertLongToDate(transactionToSetUp.date)
             transactionStatus = transactionToSetUp.state.toString()
             amount = transactionToSetUp.amount.toString()
         }
